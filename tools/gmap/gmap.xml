@@ -1,0 +1,16 @@
+<tool id="gmap" name="GMAP" version="2016-11-07">
+	<description>A Genomic Mapping and Alignment Program</description>
+	<command>
+		gmap -d hg19 --split-output=transloc ${input}
+	</command>
+	<inputs>
+		<param format="fasta" name="input" type="data" label="Contigs" />
+	</inputs>
+	<outputs>
+		<collection type="list" name="output">
+			 <discover_datasets pattern="(?P&lt;designation&gt;.+)\.transloc" format="txt" visible="true" />
+		</collection>
+	</outputs>
+	<help></help>
+</tool>
+

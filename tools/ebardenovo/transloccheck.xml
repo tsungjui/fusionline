@@ -1,0 +1,37 @@
+<tool id="transloccheck" name="Transloc check" version="1.0.1">
+	<description>Check chimeric contigs from paired-end RNA-Seq assembly</description>
+	<command>
+		ln $input1 left.fastq;
+		ln $input2 right.fastq;
+		ln $input3 contigs.fa;
+		#if $chimeric.opt == "no":
+			mono /home/bioinfo/galaxy/tools/ebardenovo/TranslocCheck.exe left.fastq right.fastq -c contigs.fa -t $input4;
+		#elif $chimeric.opt == "yes":
+			mono /home/bioinfo/galaxy/tools/ebardenovo/TranslocCheck.exe left.fastq right.fastq -c contigs.fa -t $input4 -S;
+		#end if
+		mv contigs.txt translocCheck_output.txt;
+		mv contigs_tloc.ace translocCheck_ace.ace;
+	</command>
+	<inputs>
+		<param format="fastq" name="input1" type="data" label="Left reads" />
+		<param format="fastq" name="input2" type="data" label="Right reads" />
+		<param format="fasta" name="input3" type="data" label="Contigs" />
+		<param format="txt" name="input4" type="data" label="GMAP tranloc file" />
+		<conditional name="chimeric">
+			<param name="opt" type="select" label="Input contigs are chimeric">
+				<option value="yes">YES</option>
+				<option value="no" selected="true">NO</option>
+			</param>
+			<when value="yes"/>
+			<when value="no"/>
+		</conditional>
+	</inputs>
+	<outputs>
+		<collection type="list" name="output">
+			<discover_datasets pattern="(?P&lt;designation&gt;.+)\.txt" format="txt" />
+			<discover_datasets pattern="(?P&lt;designation&gt;.+)\.ace" format="txt" />
+		</collection>
+	</outputs>
+	<help></help>
+</tool>
+

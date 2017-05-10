@@ -1,0 +1,20 @@
+<tool id="ebardenovo" name="EBARDenovo" version="2.0.2">
+	<description>de novo assembly for RNA-seq data</description>
+	<command>
+		mono /home/bioinfo/galaxy/tools/ebardenovo/EBARDenovo.exe -F fq $input1 $input2 -o $output1 -Q;
+		mv ${output1}-chimera.fa chimera-chimera.fa;
+	</command>
+	<inputs>
+		<param format="fastq" name="input1" type="data" label="Left reads" />
+		<param format="fastq" name="input2" type="data" label="Right reads" />
+	</inputs>
+	<outputs>
+		<data format="fasta" name="output1">
+			<discover_datasets pattern="(?P&lt;designation&gt;.+)\-chimera\.fa" format="fasta" visible="true" />
+		</data>
+	</outputs>
+
+	<help>
+
+	</help>
+</tool>

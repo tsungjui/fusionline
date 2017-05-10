@@ -1,0 +1,17 @@
+<tool id="star_fusion" name="STAR-Fusion" version="0.8.0">
+	<description>A fusion transcripts identifier using STAR aligner</description>
+	<command interpreter="perl">STAR-Fusion --genome_lib_dir /home/bioinfo/CTAT_resource_lib --left_fq $input1 --right_fq $input2 --output_dir star_fusion_outdir</command>
+	<inputs>
+		<param format="fastq" name="input1" type="data" label="Left reads" />
+		<param format="fastq" name="input2" type="data" label="Right reads" />
+	</inputs>
+	<outputs>
+		<collection type="list" name="output1">
+			<discover_datasets pattern="(?P&lt;designation&gt;.*)" directory="star_fusion_outdir" />
+		</collection>
+	</outputs>
+
+	<help>
+
+	</help>
+</tool>
